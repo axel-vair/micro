@@ -1,11 +1,36 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const mongoose = require('mongoose');
+const reservationRoutes = require('./routes/reservation');
+const tableRoutes = require('./routes/table');
+const userRoutes = require('./routes/user');
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
+const app = express();
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+// Connexion à la base de données MongoDB
+mongoose.connect('mongodb://localhost:27017/micro', {
+    serverSelectionTimeoutMS: 30000 // 30 secondes
 })
+    .then(() => console.log('Connexion à MongoDB réussie !'))
+    .catch(() => console.log('Connexion à MongoDB échouée !'));
+
+
+app.use((req, res, next) => {
+    res.setHeader('Content-Security-Policy', "default-src 'self';");
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    next();
+});
+
+// Middleware pour parser les requêtes JSON
+app.use(express.json());
+
+// Routes
+// app.use('/api/reservations', reservationRoutes);
+// app.use('/api/tables', tableRoutes);
+app.use('/api/users', userRoutes);
+
+// Démarrage du serveur
+app.listen(3001, () => {
+    console.log('Serveur démarré sur le port 3001');
+});

@@ -1,14 +1,10 @@
 services:
-  database:
-    image: 'postgres'
-    environment:
-      POSTGRES_PASSWORD: password
-      POSTGRES_USER: micro
-      POSTGRES_DB: micro
+
+  mongodb:
+    image: mongo
     ports:
-      - '5432:5432'
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - '19080:8080'
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+volumes:
+  mongo-data:
