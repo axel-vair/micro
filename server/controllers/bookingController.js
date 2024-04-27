@@ -4,9 +4,6 @@ const User = require('../models/User');
 
 exports.createBooking = async (req, res) => {
     try {
-        const dateStartTime = formData.date + 'T' + formData.startTime;
-        const dateEndTime = formData.date + 'T' + formData.endTime;
-
         const { userId, tableId, date, startTime, endTime } = req.body;
 
         // Vérifier que la table existe
@@ -23,9 +20,9 @@ exports.createBooking = async (req, res) => {
         const booking = new Booking({
             user: userId,
             table: tableId,
-            date: new Date(dateStartTime),
-            startTime: new Date(dateStartTime),
-            endTime: new Date(dateEndTime)        });
+            date: new Date(date),
+            startTime: new Date(startTime),
+            endTime: new Date(endTime)        });
 
         await booking.save();
         res.status(201).json(booking);
