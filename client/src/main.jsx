@@ -5,6 +5,8 @@ import Register from "./components/register.jsx";
 import Calendar from "./components/calendar.jsx";
 import './assets/calendar.css';
 import Table from "./components/table.jsx";
+import Bookings from "./components/bookings.jsx";
+import BookingForm from "./components/bookingForm.jsx";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -12,5 +14,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Login />
       <Calendar />
       <Table />
+      <Bookings />
+      <BookingForm />
   </React.StrictMode>,
 )

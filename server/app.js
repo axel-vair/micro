@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const reservationRoutes = require('./routes/booking');
+const bookingRoutes = require('./routes/booking');
 const tableRoutes = require('./routes/table');
 const userRoutes = require('./routes/user');
 
@@ -26,9 +26,9 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 // Routes
-// app.use('/api/reservations', reservationRoutes);
 app.use('/api/tables', tableRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/bookings', bookingRoutes);
 
 // Démarrage du serveur
 app.listen(3001, () => {
