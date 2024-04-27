@@ -27,7 +27,7 @@ app.use(express.json());
 
 // Routes
 // app.use('/api/reservations', reservationRoutes);
-// app.use('/api/tables', tableRoutes);
+app.use('/api/tables', tableRoutes);
 app.use('/api/users', userRoutes);
 
 // Démarrage du serveur
