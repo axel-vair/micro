@@ -1,17 +1,19 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import axios from "axios";
 
 const BookingForm = () => {
+    const userId = localStorage.getItem('userId');
+
     const [formDataBooking, setFormDataBooking] = useState({
-        userId: '',
-        tableId: '',
+
+        userId: localStorage.getItem('userId'),
         date: '',
         startTime: '',
         endTime: ''
     });
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setFormDataBooking(prevState => ({
             ...prevState,
             [name]: value
@@ -35,7 +37,6 @@ const BookingForm = () => {
         // Création du nouvel objet à envoyer
         const bookingData = {
             userId: formDataBooking.userId,
-            tableId: formDataBooking.tableId,
             date: date.toISOString(), // Convertir en format ISO (YYYY-MM-DDTHH:MM:SSZ)
             startTime: startTime,
             endTime: endTime
@@ -44,6 +45,8 @@ const BookingForm = () => {
         axios.post('http://localhost:3001/api/bookings/newBooking', bookingData)
             .then(response => {
                 console.log(response.data);
+
+
             })
             .catch(error => {
                 console.error('Erreur', error)
@@ -51,32 +54,36 @@ const BookingForm = () => {
     };
 
     return (
+
         <div>
-            <h2>Réserver une table</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>UserID:</label>
-                    <input type="text" name="userId" value={formDataBooking.userId} onChange={handleChange} />
-                </div>
-                <div>
-                    <label>TableID:</label>
-                    <input type="text" name="tableId" value={formDataBooking.tableId} onChange={handleChange} />
-                </div>
-                <div>
-                    <label>Date:</label>
-                    <input type="date" name="date" value={formDataBooking.date} onChange={handleChange} />
-                </div>
-                <div>
-                    <label>Heure de début:</label>
-                    <input type="time" name="startTime" value={formDataBooking.startTime} onChange={handleChange} />
-                </div>
-                <div>
-                    <label>Heure de fin:</label>
-                    <input type="time" name="endTime" value={formDataBooking.endTime} onChange={handleChange} />
-                </div>
-                <button type="submit">Réserver</button>
-            </form>
-        </div>
+            {userId ? (
+                <>
+                    <h2>Réserver une table</h2>
+                    <form onSubmit={handleSubmit}>
+                        <div>
+                            <label>UserID:</label>
+                            <input type="text" name="userId" value={formDataBooking.userId} onChange={handleChange}/>
+                        </div>
+                        <div>
+                            <label>Date:</label>
+                            <input type="date" name="date" value={formDataBooking.date} onChange={handleChange}/>
+                        </div>
+                        <div>
+                            <label>Heure de début:</label>
+                            <input type="time" name="startTime" value={formDataBooking.startTime}
+                                   onChange={handleChange}/>
+                        </div>
+                        <div>
+                            <label>Heure de fin:</label>
+                            <input type="time" name="endTime" value={formDataBooking.endTime} onChange={handleChange}/>
+                        </div>
+                        <button type="submit">Réserver</button>
+                    </form>
+                </>
+            ) : (
+                <p>Vous devez être connecté pour réserver une table.</p>
+            )}
+        < /div>
     );
 };
 
