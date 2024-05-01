@@ -11,9 +11,11 @@ export default function Login(){
             .then(response => {
                 // Stockez les données de l'utilisateur dans le localStorage
                 localStorage.setItem('user', JSON.stringify(response.data));
-                console.log("User data stored:", response.data);
+
             })
     }
+
+
 
     return (
         <>
