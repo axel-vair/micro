@@ -1,15 +1,13 @@
 import ReactCalendar from "react-calendar";
 import { useState } from "react";
 import { add, format } from "date-fns";
-import {INTERVAL, RESTAURANT_CLOSING_TIME, RESTAURANT_OPENING_TIME} from "../constants/config.js";
+import { INTERVAL, RESTAURANT_CLOSING_TIME, RESTAURANT_OPENING_TIME } from "../constants/config.js";
 
-const Calendar = () => {
+const Calendar = ({ onDateTimeChange }) => {
     const [date, setDate] = useState({
         justDate: null,
         dateTime: null,
     });
-
-    console.log(date.dateTime)
 
     const getTimes = (selectedDate) => {
         if (selectedDate) {
@@ -27,6 +25,11 @@ const Calendar = () => {
 
     const times = getTimes(date.justDate);
 
+    const handleDateTimeChange = (dateTime) => {
+        setDate({ justDate: dateTime, dateTime: null }); // Reset time selection
+        onDateTimeChange(dateTime);
+    };
+
     return (
         <div className="h-screen flex flex-col items-center justify-center">
             {date.justDate ? (
@@ -35,7 +38,7 @@ const Calendar = () => {
                         <div key={`time-${i}`} className="rounded-sm bg-gray-100 p-2">
                             <button
                                 type="button"
-                                onClick={() => setDate((prev) => ({ ...prev, dateTime: time }))}
+                                onClick={() => handleDateTimeChange(time)}
                             >
                                 {format(time, "kk:mm")}
                             </button>
@@ -47,7 +50,7 @@ const Calendar = () => {
                     minDate={new Date()}
                     className="calendar p-2"
                     view="month"
-                    onClickDay={(date) => setDate((prev) => ({ ...prev, justDate: date }))}
+                    onClickDay={(date) => setDate({ justDate: date, dateTime: null })}
                 />
             )}
         </div>

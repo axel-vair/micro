@@ -1,52 +1,35 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import axios from "axios";
+import Calendar from './calendar.jsx';
+import { format } from "date-fns";
 
 const BookingForm = () => {
-    const userId = localStorage.getItem('userId');
-    console.log(userId)
-    const [formDataBooking, setFormDataBooking] = useState({
-
-        userId: localStorage.getItem('userId'),
-        date: '',
-        startTime: '',
-        endTime: ''
-    });
-
-    const handleChange = (e) => {
-        const {name, value} = e.target;
-        setFormDataBooking(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
-    };
+    const userData = JSON.parse(localStorage.getItem('user'));
+    const userId = userData ? userData.id : null;
+    const [dateTime, setDateTime] = useState(null); // Nouvel état pour stocker la date sélectionnée
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        if (!dateTime) {
+            console.error("Veuillez sélectionner une date et une heure.");
+            return;
+        }
+
         // Convertir la date en objet Date JavaScript au format ISO (YYYY-MM-DD)
-        const date = new Date(formDataBooking.date);
-
-        // Extraire les heures et minutes des heures de début et de fin
-        const [startHour, startMinute] = formDataBooking.startTime.split(':');
-        const [endHour, endMinute] = formDataBooking.endTime.split(':');
-
-        // Créer les objets Date pour l'heure de début et l'heure de fin
-        const startTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), startHour, startMinute);
-        const endTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), endHour, endMinute);
+        const date = new Date(dateTime);
 
         // Création du nouvel objet à envoyer
         const bookingData = {
-            userId: formDataBooking.userId,
+            userId: userId,
             date: date.toISOString(), // Convertir en format ISO (YYYY-MM-DDTHH:MM:SSZ)
-            startTime: startTime,
-            endTime: endTime
+            startTime: date,
+            endTime: date // Remplacer startTime et endTime par les valeurs appropriées
         };
 
         axios.post('http://localhost:3001/api/bookings/newBooking', bookingData)
             .then(response => {
                 console.log(response.data);
-
-
             })
             .catch(error => {
                 console.error('Erreur', error)
@@ -54,36 +37,25 @@ const BookingForm = () => {
     };
 
     return (
-
         <div>
             {userId ? (
                 <>
                     <h2>Réserver une table</h2>
                     <form onSubmit={handleSubmit}>
-                        <div>
-                            <label>UserID:</label>
-                            <input type="text" name="userId" value={formDataBooking.userId} onChange={handleChange}/>
-                        </div>
-                        <div>
-                            <label>Date:</label>
-                            <input type="date" name="date" value={formDataBooking.date} onChange={handleChange}/>
-                        </div>
-                        <div>
-                            <label>Heure de début:</label>
-                            <input type="time" name="startTime" value={formDataBooking.startTime}
-                                   onChange={handleChange}/>
-                        </div>
-                        <div>
-                            <label>Heure de fin:</label>
-                            <input type="time" name="endTime" value={formDataBooking.endTime} onChange={handleChange}/>
-                        </div>
+                        <Calendar onDateTimeChange={setDateTime} /> {/* Passer la fonction de mise à jour de l'état */}
+                        {dateTime && (
+                            <div>
+                                Date sélectionnée : {format(dateTime, "dd/MM/yyyy")}<br />
+                                Heure sélectionnée : {format(dateTime, "kk:mm")}
+                            </div>
+                        )}
                         <button type="submit">Réserver</button>
                     </form>
                 </>
             ) : (
                 <p>Vous devez être connecté pour réserver une table.</p>
             )}
-        < /div>
+        </div>
     );
 };
 
