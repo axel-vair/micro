@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import axios from "axios";
 import Calendar from './calendar.jsx';
-import { format } from "date-fns";
+import {addHours, format} from "date-fns";
 
 const BookingForm = () => {
     const userData = JSON.parse(localStorage.getItem('user'));
     const userId = userData ? userData.id : null;
     const [dateTime, setDateTime] = useState(null); // Nouvel état pour stocker la date sélectionnée
+    const DEFAULT_TABLE_ID = "662cea989ddb06e43ed476ac";
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -18,13 +20,16 @@ const BookingForm = () => {
 
         // Convertir la date en objet Date JavaScript au format ISO (YYYY-MM-DD)
         const date = new Date(dateTime);
+        const endTime = addHours(date, 1);
 
         // Création du nouvel objet à envoyer
         const bookingData = {
             userId: userId,
             date: date.toISOString(), // Convertir en format ISO (YYYY-MM-DDTHH:MM:SSZ)
             startTime: date,
-            endTime: date // Remplacer startTime et endTime par les valeurs appropriées
+            endTime: endTime,
+            tableId: DEFAULT_TABLE_ID // Inclure l'ID de la table par défaut
+
         };
 
         axios.post('http://localhost:3001/api/bookings/newBooking', bookingData)
