@@ -3,7 +3,7 @@ import axios from "axios";
 
 const BookingForm = () => {
     const userId = localStorage.getItem('userId');
-
+    console.log(userId)
     const [formDataBooking, setFormDataBooking] = useState({
 
         userId: localStorage.getItem('userId'),
