@@ -1,21 +1,28 @@
 import ReactCalendar from "react-calendar";
 import { useState } from "react";
-import { add, format } from "date-fns";
+import { add, format, isBefore } from "date-fns";
 import { INTERVAL, RESTAURANT_CLOSING_TIME, RESTAURANT_OPENING_TIME } from "../constants/config.js";
 
 const Calendar = ({ onDateTimeChange }) => {
-    const [selectedDate, setSelectedDate] = useState(null); // État pour stocker la date sélectionnée
-    const [selectedTime, setSelectedTime] = useState(null); // État pour stocker l'heure sélectionnée
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedTime, setSelectedTime] = useState(null);
+    const now = new Date();
 
     const handleDateTimeChange = (dateTime) => {
-        // Mettre à jour l'état avec la nouvelle date et heure sélectionnées
-        setSelectedTime(dateTime);
-        onDateTimeChange(dateTime); // Appeler la fonction de rappel avec la nouvelle date et heure sélectionnées
+        if (isBefore(dateTime, now)) {
+            // Griser l'heure sélectionnée si elle est dépassée
+            setSelectedTime(dateTime);
+            onDateTimeChange(dateTime);
+        } else {
+            // Réactiver les heures sélectionnées
+            setSelectedTime(dateTime);
+            onDateTimeChange(dateTime);
+        }
     };
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
-        setSelectedTime(null); // Réinitialiser l'heure sélectionnée lorsque la date est modifiée
+        setSelectedTime(null);
     };
 
     const getTimesForSelectedDate = () => {
@@ -39,16 +46,23 @@ const Calendar = ({ onDateTimeChange }) => {
                 minDate={new Date()}
                 className="calendar p-2"
                 view="month"
-                onClickDay={handleDateChange} // Mettre à jour la date sélectionnée
+                onClickDay={handleDateChange}
             />
             {selectedDate && (
                 <div className="flex gap-4">
-                    {/* Afficher les créneaux horaires disponibles pour la date sélectionnée */}
                     {getTimesForSelectedDate().map((time, i) => (
-                        <div key={`time-${i}`} className="rounded-sm bg-gray-100 p-2">
+                        <div
+                            key={`time-${i}`}
+                            className={`time rounded-sm p-2 ${
+                                isBefore(time, now)
+                                    ? "bg-red-100 text-red-500 cursor-not-allowed"
+                                    : "bg-gray-100 cursor-pointer"
+                            }`}
+                        >
                             <button
                                 type="button"
                                 onClick={() => handleDateTimeChange(time)}
+                                disabled={isBefore(time, now)}
                             >
                                 {format(time, "kk:mm")}
                             </button>
