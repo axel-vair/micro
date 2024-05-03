@@ -1,13 +1,31 @@
 import { useState } from 'react';
 import axios from "axios";
 import Calendar from './calendar.jsx';
-import { addHours, format } from "date-fns";
+import { addHours, format, isBefore } from "date-fns";
 
 const BookingForm = () => {
     const userData = JSON.parse(localStorage.getItem('user'));
     const userId = userData ? userData.id : null;
     const [dateTime, setDateTime] = useState(null);
     const [numberOfPeople, setNumberOfPeople] = useState(1);
+    const now = new Date();
+
+    const handleDateTimeChange = (newDateTime) => {
+        if (isBefore(newDateTime, now)) {
+            // Griser l'heure sélectionnée si elle est dépassée
+            const disabledHours = document.querySelectorAll('.time');
+            disabledHours.forEach((hour) => {
+                hour.classList.add('');
+            });
+        } else {
+            // Réactiver les heures sélectionnées
+            const disabledHours = document.querySelectorAll('.react-calendar__tile--disabled');
+            disabledHours.forEach((hour) => {
+                hour.classList.remove('react-calendar__tile--disabled');
+            });
+            setDateTime(newDateTime);
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -44,7 +62,7 @@ const BookingForm = () => {
                 <>
                     <h2>Réserver une table</h2>
                     <form onSubmit={handleSubmit}>
-                        <Calendar onDateTimeChange={setDateTime} />
+                        <Calendar onDateTimeChange={handleDateTimeChange} />
                         {dateTime && (
                             <div>
                                 Date sélectionnée : {format(dateTime, "dd/MM/yyyy")}<br/>
