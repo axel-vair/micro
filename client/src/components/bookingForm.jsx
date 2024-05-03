@@ -6,8 +6,8 @@ import {addHours, format} from "date-fns";
 const BookingForm = () => {
     const userData = JSON.parse(localStorage.getItem('user'));
     const userId = userData ? userData.id : null;
-    const [dateTime, setDateTime] = useState(null); // Nouvel état pour stocker la date sélectionnée
-    const DEFAULT_TABLE_ID = "662cea989ddb06e43ed476ac";
+    const [dateTime, setDateTime] = useState(null);
+    const DEFAULT_TABLE_ID = "662cea989ddb06e43ed476ac"; // inject table
 
 
     const handleSubmit = (e) => {
@@ -17,7 +17,6 @@ const BookingForm = () => {
             console.error("Veuillez sélectionner une date et une heure.");
             return;
         }
-
         // Convertir la date en objet Date JavaScript au format ISO (YYYY-MM-DD)
         const date = new Date(dateTime);
         const endTime = addHours(date, 1);
@@ -47,7 +46,7 @@ const BookingForm = () => {
                 <>
                     <h2>Réserver une table</h2>
                     <form onSubmit={handleSubmit}>
-                        <Calendar onDateTimeChange={setDateTime} /> {/* Passer la fonction de mise à jour de l'état */}
+                        <Calendar onDateTimeChange={setDateTime} />
                         {dateTime && (
                             <div>
                                 Date sélectionnée : {format(dateTime, "dd/MM/yyyy")}<br />
