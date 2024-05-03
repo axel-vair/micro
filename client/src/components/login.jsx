@@ -9,13 +9,16 @@ export default function Login(){
         e.preventDefault();
         axios.post('http://localhost:3001/api/users/login', {email, password})
             .then(response => {
-                // Stockez les données de l'utilisateur dans le localStorage
-                localStorage.setItem('user', JSON.stringify(response.data));
+                const userData = {
+                    id: response.data.user._id,
+                    email: response.data.user.email,
+                    role: response.data.user.role,
+                };
+
+                localStorage.setItem('user', JSON.stringify(userData));
 
             })
     }
-
-
 
     return (
         <>
