@@ -3,13 +3,15 @@ const User = require('../models/User');
 
 exports.createBooking = async (req, res) => {
     try {
-        const {userId, date, startTime, endTime} = req.body;
+        const {userId, date, startTime, endTime, people} = req.body;
 
         const booking = new Booking({
             user: userId,
             date: new Date(date),
             startTime: new Date(startTime),
-            endTime: new Date(endTime)
+            endTime: new Date(endTime),
+            people: people
+
         });
 
         await booking.save();

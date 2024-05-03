@@ -7,6 +7,7 @@ const BookingForm = () => {
     const userData = JSON.parse(localStorage.getItem('user'));
     const userId = userData ? userData.id : null;
     const [dateTime, setDateTime] = useState(null);
+    const [numberOfPeople, setNumberOfPeople] = useState(1);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -26,6 +27,7 @@ const BookingForm = () => {
             date: date.toISOString(), // Convertir en format ISO (YYYY-MM-DDTHH:MM:SSZ)
             startTime: date.toISOString(),
             endTime: endTime.toISOString(),
+            people: numberOfPeople
         };
 
         try {
@@ -45,10 +47,20 @@ const BookingForm = () => {
                         <Calendar onDateTimeChange={setDateTime} />
                         {dateTime && (
                             <div>
-                                Date sélectionnée : {format(dateTime, "dd/MM/yyyy")}<br />
-                                Heure sélectionnée : {format(dateTime, "kk:mm")}
+                                Date sélectionnée : {format(dateTime, "dd/MM/yyyy")}<br/>
+                                Heure sélectionnée : {format(dateTime, "kk:mm")}<br/>
+
+                                <label>Nombre de personnes:
+                                    <input
+                                        type="number"
+                                        value={numberOfPeople}
+                                        onChange={(e) => setNumberOfPeople(e.target.value)}
+                                        min="1"
+                                        max="10"/>
+                                </label>
                             </div>
                         )}
+
                         <button type="submit">Réserver</button>
                     </form>
                 </>
