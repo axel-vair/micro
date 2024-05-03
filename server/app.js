@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bookingRoutes = require('./routes/booking');
-const tableRoutes = require('./routes/table');
 const userRoutes = require('./routes/user');
 
 const app = express();
@@ -26,7 +25,6 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 // Routes
-app.use('/api/tables', tableRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/bookings', bookingRoutes);
 

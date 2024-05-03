@@ -36,7 +36,6 @@ const BookingList = () => {
                 <thead>
                 <tr>
                     <th>User</th>
-                    <th>Table</th>
                     <th>Date</th>
                     <th>Start Time</th>
                     <th>End Time</th>
@@ -47,7 +46,6 @@ const BookingList = () => {
                 {bookings.map((booking) => (
                     <tr key={booking._id}>
                         <td>{booking.user?.email || 'Utilisateur inconnu'}</td>
-                        <td>{booking.table?.name || 'Table inconnue'}</td>
                         <td>{new Date(booking.date).toLocaleDateString()}</td>
                         <td>{new Date(booking.startTime).toLocaleTimeString()}</td>
                         <td>{new Date(booking.endTime).toLocaleTimeString()}</td>
