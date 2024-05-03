@@ -1,22 +1,21 @@
 import { useState } from 'react';
 import axios from "axios";
 import Calendar from './calendar.jsx';
-import {addHours, format} from "date-fns";
+import { addHours, format } from "date-fns";
 
 const BookingForm = () => {
     const userData = JSON.parse(localStorage.getItem('user'));
     const userId = userData ? userData.id : null;
     const [dateTime, setDateTime] = useState(null);
-    const DEFAULT_TABLE_ID = "662cea989ddb06e43ed476ac"; // inject table
 
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!dateTime) {
             console.error("Veuillez sélectionner une date et une heure.");
             return;
         }
+
         // Convertir la date en objet Date JavaScript au format ISO (YYYY-MM-DD)
         const date = new Date(dateTime);
         const endTime = addHours(date, 1);
@@ -25,19 +24,16 @@ const BookingForm = () => {
         const bookingData = {
             userId: userId,
             date: date.toISOString(), // Convertir en format ISO (YYYY-MM-DDTHH:MM:SSZ)
-            startTime: date,
-            endTime: endTime,
-            tableId: DEFAULT_TABLE_ID // Inclure l'ID de la table par défaut
-
+            startTime: date.toISOString(),
+            endTime: endTime.toISOString(),
         };
 
-        axios.post('http://localhost:3001/api/bookings/newBooking', bookingData)
-            .then(response => {
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.error('Erreur', error)
-            });
+        try {
+            const response = await axios.post('http://localhost:3001/api/bookings/newBooking', bookingData);
+            console.log(response.data);
+        } catch (error) {
+            console.error('Erreur', error);
+        }
     };
 
     return (
