@@ -1,5 +1,6 @@
 import {useState} from "react";
 import axios from "axios";
+import Navigation from "./_navbar.jsx";
 
 export default function Login(){
     const [email, setEmail] = useState("");
@@ -22,6 +23,7 @@ export default function Login(){
 
     return (
         <>
+            <Navigation />
             <h1>Formulaire de connexion</h1>
             <form onSubmit={handleSubmit}>
                 <label>Email</label>

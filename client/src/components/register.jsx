@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import axios from 'axios';
+import Navigation from "./_navbar.jsx";
 
 function Register() {
     const [formData, setFormData] = useState({
@@ -32,6 +33,7 @@ function Register() {
 
     return (
         <>
+            <Navigation />
             <h1>Formulaire d'inscription</h1>
             <form onSubmit={handleSubmit}>
                 <label>Email</label>
