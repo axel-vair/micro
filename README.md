@@ -9,7 +9,7 @@
  
 Nous avions le choix entre deux microframeworks pour le backend, **Slim** ou **ExpressJS**.
 
-Bien que ces deux technos soient toutes les deux "éculées" et que des alternatives modernes existent, le choix d'ExpressJs est plus pertinent du fait de sa communauté plus grande ainsi que de ses ressources plus nombreuses et plus faciles  à trouver.  
+Bien que ces deux technos soient toutes les deux "éculées" et que des alternatives modernes existent, le choix d'ExpressJs est plus pertinent du fait de sa communauté plus grande ainsi que de ses ressources plus nombreuses et plus faciles  à trouver. Rappellons toutefois qu'ExpressJS n'a pas été mis à jour depuis 2015 et que des alternatives comme Fastify ou AdonisJS auraient été judicieuses. 
 
 <u>Le frontend :</u>  
 
@@ -55,9 +55,10 @@ On évitera ainsi à l'aide de Docker les problèmes d'installation sur différe
 La base de données est configurée par un fichier compose.yaml que l'on lancera à l'aide de la commande : 
 - docker compose up -d
 
+Nous avions fait le choix d'une base de données Postgresql. Cependant, pour se simplifier la tâche et aller vers l'apprehension de la stack MERN, nous avons basculé sur du MongoDB avec Mongoose (Object Document Mapping (ODM) qui permet de définir des schémas pour les données stockées dans MongoDB.
+
 ~~De cette manière, au premier lancement de cette commande la base de données postgresql va se créer à l'intérieur d'un container.~~
 ~~De la même manière, notre fichier de configuration possède une visionneuse de base de données : _adminer_.~~
-
 
 Le port de la base de données est le : ~~**5432**~~ **27O17**
 
