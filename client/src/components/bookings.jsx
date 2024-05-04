@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react'
 import axios from 'axios';
+import Navigation from "./_navbar.jsx";
 
 const BookingList = () => {
     const [bookings, setBookings] = useState([]);
@@ -31,6 +32,7 @@ const BookingList = () => {
 
     return (
         <div>
+            <Navigation />
             <h2>Booking List</h2>
             <table>
                 <thead>
