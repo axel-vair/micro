@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from "axios";
 import Calendar from './calendar.jsx';
 import { addHours, format, isBefore } from "date-fns";
+import Navigation from "./_navbar.jsx";
 
 const BookingForm = () => {
     const userData = JSON.parse(localStorage.getItem('user'));
@@ -58,6 +59,7 @@ const BookingForm = () => {
 
     return (
         <div>
+            <Navigation />
             {userId ? (
                 <>
                     <h2>Réserver une table</h2>
