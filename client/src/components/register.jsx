@@ -98,7 +98,7 @@ function Register() {
                         </div>
                         <button
                             type="submit"
-                            className="bg-primary-500 hover:bg-primary-600 text-white font-bold py-2 px-4 rounded-md transition-colors duration-300"
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition-colors duration-300"
                         >
                             S'inscrire
                         </button>
