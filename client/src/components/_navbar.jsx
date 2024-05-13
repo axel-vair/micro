@@ -1,8 +1,21 @@
 import { Link } from 'react-router-dom';
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 const Navigation = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     const isLoggedIn = !!user;
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+            await axios.post('http://localhost:3001/api/users/logout');
+            localStorage.removeItem('user');
+            navigate('/login');
+        } catch (error) {
+            console.error('Erreur lors de la déconnexion :', error);
+        }
+    };
 
     return (
         <nav className="bg-gray-800 py-4">
@@ -38,9 +51,9 @@ const Navigation = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/logout" className="hover:text-white">
+                                <button onClick={handleLogout} className="hover:text-white">
                                     Déconnexion
-                                </Link>
+                                </button>
                             </li>
                         </>
                     )}
