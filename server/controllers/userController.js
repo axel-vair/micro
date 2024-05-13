@@ -24,13 +24,13 @@ exports.login = async (req, res) => {
         const userWithEmail = await User.findOne({email}).catch(
             (err) => {
                 console.log("Error:", err);
-                return res.status(500).json({ message: "Une erreur s'est produite lors de la recherche de l'utilisateur" });
+                return res.status(500).json({message: "Une erreur s'est produite lors de la recherche de l'utilisateur"});
             }
         );
 
         // Si l'utilisateur n'existe pas
         if (!userWithEmail) {
-            return res.status(400).json({ message: "Email ou mot de passe incorrect" });
+            return res.status(400).json({message: "Email ou mot de passe incorrect"});
         }
 
         // Comparer le mot de passe fourni avec le mot de passe hashé
@@ -38,10 +38,20 @@ exports.login = async (req, res) => {
 
         // Si le mot de passe est incorrect
         if (!isPasswordValid) {
-            return res.status(400).json({ message: "Email ou mot de passe incorrect" });
+            return res.status(400).json({message: "Email ou mot de passe incorrect"});
         }
-        return res.status(200).json({ message: "Connexion réussie", user: userWithEmail });
-    }catch (error){
+        return res.status(200).json({message: "Connexion réussie", user: userWithEmail});
+    } catch (error) {
         res.status(500).json({error: error.message})
     }
+
+}
+
+exports.logout = async (req, res) => {
+    try {
+        res.status(200).json({ message: 'Déconnexion réussie' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+
 }
