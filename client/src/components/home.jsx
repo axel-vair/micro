@@ -14,7 +14,7 @@ const Home = () => {
                     <p className="text-lg md:text-xl mb-8">Découvrez une expérience culinaire unique dans un cadre
                         élégant et contemporain.</p>
                     <Link to="/menu"
-                          className="inline-block bg-blue-400 text-primary-500 font-bold py-4 px-8 rounded-full hover:bg-blue-700 transition-colors duration-300">
+                          className="inline-block bg-blue-500 text-primary-500 font-bold py-4 px-8 rounded-full hover:bg-blue-700 transition-colors duration-300">
                         Découvrir le menu
                     </Link>
                 </div>
@@ -51,7 +51,7 @@ const Home = () => {
                         Profitez d'une expérience culinaire exceptionnelle dans un cadre élégant et moderne.
                     </p>
                     <Link to="/book"
-                          className="inline-block bg-blue-400 text-primary-500 font-bold py-4 px-8 rounded-full hover:bg-blue-700 transition-colors duration-300">
+                          className="inline-block bg-blue-500 text-primary-500 font-bold py-4 px-8 rounded-full hover:bg-blue-700 transition-colors duration-300">
                         <i className="fas fa-calendar-alt mr-2"></i> Réserver une table
                     </Link>
                 </div>
