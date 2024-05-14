@@ -44,6 +44,7 @@ const BookingList = () => {
                             <th className="px-4 py-2">Heure de début</th>
                             <th className="px-4 py-2">Heure de fin</th>
                             <th className="px-4 py-2">Statut</th>
+                            <th className=''></th>
                         </tr>
                         </thead>
                         <tbody>
