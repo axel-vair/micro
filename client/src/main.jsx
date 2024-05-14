@@ -9,6 +9,8 @@ import Bookings from "./components/bookings.jsx";
 import BookingForm from "./components/bookingForm.jsx";
 import AdminGuard from "./guards/admin-guard.jsx";
 import './assets/calendar.css';
+import './assets/modale.css';
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
