@@ -3,6 +3,7 @@ import axios from "axios";
 import Calendar from './calendar.jsx';
 import { addHours, format, isBefore } from "date-fns";
 import Navigation from "./_navbar.jsx";
+import Modal from './_modal.jsx';
 
 const BookingForm = () => {
     const userData = JSON.parse(localStorage.getItem('user'));
@@ -10,6 +11,7 @@ const BookingForm = () => {
     const [dateTime, setDateTime] = useState(null);
     const [numberOfPeople, setNumberOfPeople] = useState(1);
     const now = new Date();
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleDateTimeChange = (newDateTime) => {
         if (isBefore(newDateTime, now)) {
@@ -52,41 +54,57 @@ const BookingForm = () => {
         try {
             const response = await axios.post('http://localhost:3001/api/bookings/newBooking', bookingData);
             console.log(response.data);
+            setIsModalOpen(true); // Ouvrir la modal après une réservation réussie
         } catch (error) {
             console.error('Erreur', error);
         }
     };
 
     return (
-        <div>
+        <div className="bg-gray-900 min-h-screen">
             <Navigation />
-            {userId ? (
-                <>
-                    <h2>Réserver une table</h2>
-                    <form onSubmit={handleSubmit}>
-                        <Calendar onDateTimeChange={handleDateTimeChange} />
-                        {dateTime && (
-                            <div>
-                                Date sélectionnée : {format(dateTime, "dd/MM/yyyy")}<br/>
-                                Heure sélectionnée : {format(dateTime, "kk:mm")}<br/>
+            <div className="container mx-auto px-4 py-8">
+                {userId ? (
+                    <>
+                        <h2 className="text-2xl text-white font-bold mb-4">Réserver une table</h2>
+                        <form onSubmit={handleSubmit}>
+                            <Calendar onDateTimeChange={handleDateTimeChange} />
+                            {dateTime && (
+                                <div className="mt-4 bg-white p-4 rounded-md mx-auto max-w-md">
+                                    <p className="text-gray-800">Date sélectionnée : {format(dateTime, "dd/MM/yyyy")}</p>
+                                    <p className="text-gray-800">Heure sélectionnée : <span className="font-bold">{format(dateTime, "HH:mm")}</span></p>
 
-                                <label>Nombre de personnes:
-                                    <input
-                                        type="number"
-                                        value={numberOfPeople}
-                                        onChange={(e) => setNumberOfPeople(e.target.value)}
-                                        min="1"
-                                        max="10"/>
-                                </label>
+                                    <label className="block text-gray-800 mt-4">
+                                        Nombre de personnes:
+                                        <input
+                                            type="number"
+                                            value={numberOfPeople}
+                                            onChange={(e) => setNumberOfPeople(e.target.value)}
+                                            min="1"
+                                            max="10"
+                                            className="ml-2 border border-gray-300 rounded-md py-1 px-2"
+                                        />
+                                    </label>
+                                </div>
+                            )}
+
+                            <div className="flex justify-center mt-4">
+                                {dateTime && (
+                                    <button
+                                        type="submit"
+                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition-colors duration-300"
+                                    >
+                                        Réserver
+                                    </button>
+                                )}
                             </div>
-                        )}
-
-                        <button type="submit">Réserver</button>
-                    </form>
-                </>
-            ) : (
-                <p>Vous devez être connecté pour réserver une table.</p>
-            )}
+                        </form>
+                    </>
+                ) : (
+                    <p>Vous devez être connecté pour réserver une table.</p>
+                )}
+            </div>
+            <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} />
         </div>
     );
 };
