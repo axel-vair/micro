@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import logoImage from 'client\\src\\logo\\LOGO.png';
+import logoImage from '/src/logo/LOGO.png';
 
 const Navigation = () => {
     const user = JSON.parse(localStorage.getItem("user"));
