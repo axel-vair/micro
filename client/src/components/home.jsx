@@ -10,7 +10,7 @@ const Home = () => {
             {/* Hero Section */}
             <section className="py-32 bg-hero-image bg-cover bg-center">
                 <div className="container mx-auto px-4 text-center">
-                    <h1 className="text-4xl md:text-6xl font-bold mb-4">Bienvenue chez Saveurs Modernes</h1>
+                    <h1 className="text-4xl md:text-6xl font-bold mb-4">Café des délices</h1>
                     <p className="text-lg md:text-xl mb-8">Découvrez une expérience culinaire unique dans un cadre
                         élégant et contemporain.</p>
                     <Link to="/menu"
