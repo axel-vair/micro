@@ -7,6 +7,7 @@ export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPopup, setShowPopup] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
@@ -21,6 +22,7 @@ export default function Login() {
                 };
 
                 localStorage.setItem("user", JSON.stringify(userData));
+                setIsLoggedIn(true);
                 setShowPopup(true);
                 setTimeout(() => {
                     navigate('/book');
@@ -31,6 +33,7 @@ export default function Login() {
                 // Gérer les erreurs en fonction de vos besoins
             });
     };
+
 
     return (
         <>

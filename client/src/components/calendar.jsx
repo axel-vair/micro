@@ -41,7 +41,7 @@ const Calendar = ({ onDateTimeChange }) => {
     };
 
     return (
-        <div className="h-screen flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center">
             <ReactCalendar
                 minDate={new Date()}
                 className="calendar p-2"
@@ -49,22 +49,23 @@ const Calendar = ({ onDateTimeChange }) => {
                 onClickDay={handleDateChange}
             />
             {selectedDate && (
-                <div className="flex gap-4">
+                <div className="flex flex-wrap gap-4 justify-center mt-4">
                     {getTimesForSelectedDate().map((time, i) => (
                         <div
                             key={`time-${i}`}
-                            className={`time rounded-sm p-2 ${
+                            className={`time rounded-md p-2 ${
                                 isBefore(time, now)
                                     ? "bg-red-100 text-red-500 cursor-not-allowed"
-                                    : "bg-gray-100 cursor-pointer"
+                                    : "bg-gray-100 hover:bg-gray-200 cursor-pointer transition-colors duration-300"
                             }`}
                         >
                             <button
                                 type="button"
                                 onClick={() => handleDateTimeChange(time)}
                                 disabled={isBefore(time, now)}
+                                className="font-bold text-sm"
                             >
-                                {format(time, "kk:mm")}
+                                {format(time, "HH:mm")}
                             </button>
                         </div>
                     ))}
