@@ -1,0 +1,197 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Micro API",
+    "description": "Une API pour gérer les réservations d'un restaurant",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001"
+    }
+  ],
+  "paths": {
+    "/api/users/register": {
+      "post": {
+        "summary": "Créer un nouvel utilisateur",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Inscription réussie"
+          },
+          "400": {
+            "description": "Cette adresse email est déjà utilisée."
+          },
+          "500": {
+            "description": "Erreur interne du serveur"
+          }
+        }
+      }
+    },
+    "/api/users/login": {
+      "post": {
+        "summary": "Connexion d'un utilisateur",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Connexion réussie"
+          },
+          "400": {
+            "description": "Email ou mot de passe incorrect"
+          },
+          "500": {
+            "description": "Erreur interne du serveur"
+          }
+        }
+      }
+    },
+    "/logout": {
+      "post": {
+        "summary": "Déconnexion d'un utilisateur",
+        "responses": {
+          "200": {
+            "description": "Déconnexion réussie"
+          },
+          "500": {
+            "description": "Erreur interne du serveur"
+          }
+        }
+      }
+    },
+    "/api/bookings/newBooking": {
+      "post": {
+        "summary": "Créer une nouvelle réservation",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string"
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "startTime": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "endTime": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "people": {
+                    "type": "number"
+                  },
+                  "status": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Réservation créée avec succès"
+          },
+          "500": {
+            "description": "Erreur interne du serveur"
+          }
+        }
+      }
+    },
+    "/api/bookings/allBookings": {
+      "get": {
+        "summary": "Récupérer toutes les réservations",
+        "responses": {
+          "200": {
+            "description": "Réservations récupérées avec succès"
+          },
+          "500": {
+            "description": "Erreur interne du serveur"
+          }
+        }
+      }
+    },
+    "/api/bookings/{id}/status": {
+      "patch": {
+        "summary": "Mettre à jour le statut d'une réservation",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID de la réservation",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Statut de la réservation mis à jour avec succès"
+          },
+          "404": {
+            "description": "Réservation non trouvée"
+          },
+          "500": {
+            "description": "Erreur interne du serveur"
+          }
+        }
+      }
+    }
+  }
+}
