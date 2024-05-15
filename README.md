@@ -148,8 +148,148 @@ POST /logout
 }
 ```
 
-## 5 - Dépendances
+### Paramètre de la requête /newBooking
 
+| Nom       | Type    | Description               |
+|-----------|---------|---------------------------|
+| user      | Object  | Objet de l'utilisateur    |
+| date      | Date    | Date du booking           |
+| startTime | Date    | Heure de début du booking |
+| endTime   | Date    | Heure de fin du booking   |
+| people    | Number  | Nombre de personnes       |
+| status    | Boolean | Status de la réservation  |
+
+
+### newBooking
+```http
+POST /bookings
+Content-Type: application/json
+{
+    "user": "6458d7a9c5e7b2f8e0f8e0f8",
+    "date": "2023-05-15T00:00:00.000Z",
+    "startTime": "2023-05-15T08:00:00.000Z",
+    "endTime": "2023-05-15T10:00:00.000Z",
+    "people": 4,
+    "status": true,
+    "_id": "6458d7a9c5e7b2f8e0f8e0f9",
+    "__v": 0
+}
+```
+
+#### Booking réussi - Code 201
+```http
+{
+    "message": "Réservation créée avec succès",
+    "booking": {
+        "user": "6458d7a9c5e7b2f8e0f8e0f8",
+        "date": "2023-05-15T00:00:00.000Z",
+        "startTime": "2023-05-15T08:00:00.000Z",
+        "endTime": "2023-05-15T10:00:00.000Z",
+        "people": 4,
+        "status": true,
+        "_id": "6458d7a9c5e7b2f8e0f8e0f9",
+        "__v": 0
+    }
+}
+```
+#### Echec du booking - Code 500
+```http
+{
+    error: 'Une erreur est survenue lors de la création de la réservation'
+}
+```
+
+#### Paramètre de la requête /allBookings
+| Nom       | Type   | Description               |
+|-----------|--------|---------------------------|
+| user      | Object | Objet de l'utilisateur    |
+| date      | Date   | Date du booking           |
+| startTime | Date   | Heure de début du booking |
+| endTime   | Date   | Heure de fin du booking   |
+| people    | Number | Nombre de personnes       |
+| status    | Boolean | Status de la réservation  |
+
+
+#### AllBookings réussi - Code 200
+```http
+GET /allBookings
+Content-Type: application/json
+{
+  [
+    {
+     "_id": "66350311ebc674092a8a4818",
+    "user": {
+    "_id": "6634fc159fcea6a77c1faa08",
+    "email": "axel@axel.fr"
+    },
+    "date": "2024-05-16T11:30:00.000Z",
+    "startTime": "2024-05-16T11:30:00.000Z",
+    "endTime": "2024-05-16T12:30:00.000Z",
+    "people": 2,
+    "__v": 0
+    },
+    {
+    "_id": "663507c1044a319664ce1bda",
+    "user": {
+    "_id": "6634fc159fcea6a77c1faa08",
+    "email": "axel@axel.fr"
+    },
+    "date": "2024-05-16T10:15:00.000Z",
+    "startTime": "2024-05-16T10:15:00.000Z",
+    "endTime": "2024-05-16T11:15:00.000Z",
+    "people": 1,
+    "__v": 0
+    }
+  ]
+}
+```
+
+#### Echec de AllBookings - Code 500
+
+```http 
+{
+    error: error.message
+}
+```
+
+#### Paramètre de la requête /:id/status
+| Nom       | Type   | Description               |
+|-----------|--------|---------------------------|
+| user      | Object | Objet de l'utilisateur    |
+| date      | Date   | Date du booking           |
+| startTime | Date   | Heure de début du booking |
+| endTime   | Date   | Heure de fin du booking   |
+| people    | Number | Nombre de personnes       |
+| status    | Boolean | Status de la réservation  |
+
+#### updateBookingStatus réussi - Code 200
+```http
+{
+    "_id": "664489ef4aacceb7e302338c",
+    "user": "6634fbf89fcea6a77c1faa03",
+    "date": "2024-05-15T10:15:00.000Z",
+    "startTime": "2024-05-15T10:15:00.000Z",
+    "endTime": "2024-05-15T11:15:00.000Z",
+    "people": 1,
+    "status": true,
+    "__v": 0
+}
+```
+
+#### Echec updateBookingStatus - Code 500
+```http
+{
+    "_id": "664489ef4aacceb7e302338c",
+    "user": "6634fbf89fcea6a77c1faa03",
+    "date": "2024-05-15T10:15:00.000Z",
+    "startTime": "2024-05-15T10:15:00.000Z",
+    "endTime": "2024-05-15T11:15:00.000Z",
+    "people": 1,
+    "status": false,
+    "__v": 0
+}
+```
+## 5 - Dépendances
 
 ### Backend
 *express* : Framework web 🤮 pour Node.js

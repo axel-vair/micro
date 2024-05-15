@@ -16,9 +16,8 @@ exports.createBooking = async (req, res) => {
         });
 
         await booking.save();
-        res.status(201).json(booking);
-    } catch (error) {
-        res.status(500).json({error: error.message});
+        res.status(201).json({ message: 'Réservation créée avec succès', booking });    } catch (error) {
+        res.status(500).json({ error: 'Une erreur est survenue lors de la création de la réservation' });
     }
 };
 
