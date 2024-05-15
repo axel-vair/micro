@@ -31,6 +31,23 @@ exports.getAllBookings = async (req, res) => {
     }
 }
 
+exports.getBookingByUserId = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        console.log(userId)
+
+        if (!userId) {
+            return res.status(400).json({ error: 'Aucun ID d\'utilisateur fourni' });
+        }
+
+        const bookings = await Booking.find({ user: userId })
+            .populate('user', 'email')
+            .exec();
+        res.status(200).json(bookings);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 exports.updateBookingStatus = async (req, res) => {
     try {
         const bookingId = req.params.id; // Supposons que l'ID de la réservation est passé dans l'URL
