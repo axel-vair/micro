@@ -11,6 +11,15 @@ const BookingList = () => {
         console.log(`chaque id est : ${$id}`);
     }
 
+    const handleCancelBooking = async (bookingId) => {
+        try {
+          await axios.patch(`http://localhost:3001/api/bookings/${bookingId}/status`, { status: false });
+          setBookings(bookings.map(booking => booking._id === bookingId ? { ...booking, status: false } : booking));
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
     useEffect(() => {
         const fetchBookings = async () => {
             try {
@@ -55,11 +64,9 @@ const BookingList = () => {
                         </thead>
                         <tbody>
                             {bookings.map((booking) => (
-                                <tr
+                               <tr
                                 key={booking._id}
-                                className={`border-b border-gray-700 ${
-                                    booking.status === true ? 'bg-green-500' : ''
-                                }`}
+                                className={`border-b border-gray-700 ${booking.status === true ? 'bg-green-500' : 'bg-red-500'}`}
                                 >
                                 <td className="px-4 py-2">
                                     {booking.user?.email || 'Utilisateur inconnu'}
@@ -80,7 +87,7 @@ const BookingList = () => {
                                     <button
                                     type="button"
                                     className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                                    onClick={()=>handleRowClick(booking._id)}>
+                                    onClick={() => handleCancelBooking(booking._id)}>
                                     Annuler
                                     </button>
                                 </td>
