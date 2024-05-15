@@ -11,6 +11,10 @@ exports.register = async (req, res) => {
         await user.save()
         res.status(200).json({message: 'User registered successfully.'});
     } catch (error) {
+        if (error.code === 11000) {
+            // Erreur de duplication de clé (email déjà utilisé)
+            return res.status(400).json({ message: 'Cette adresse email est déjà utilisée.' });
+        }
         res.status(500).json({error: error.message});
     }
 }
