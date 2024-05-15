@@ -9,7 +9,7 @@ exports.register = async (req, res) => {
             password: hashedPassword
         });
         await user.save()
-        res.status(200).json({message: 'User registered successfully.'});
+        res.status(200).json({message: "Inscription réussie"});
     } catch (error) {
         if (error.code === 11000) {
             // Erreur de duplication de clé (email déjà utilisé)
