@@ -1,6 +1,6 @@
 # Le sujet "silver-micro"
 
----
+
 
 ### *Objectifs* : 
 
@@ -24,7 +24,7 @@ Par ailleurs, la technologie frontend demandée étant React, il nous a semblé 
 
 ## 1 - Le lancement du serveur back 
 
----
+
 
 Pour le backend nous avons fait le choix d'ExpressJS. Le projet est notamment intialisé à l'aide d'Express Generator. Cependant, il a été recréé sans pour plus de simplicité.
  
@@ -33,7 +33,6 @@ Pour lancer le server backend, lancez dans le dossier 'server' la commande :`nod
 
 ## 2 - Le lancement du serveur front
 
----
 
 Pour le frontend, comme dit *supra* nous utilisons React, ainsi pour le serveur frontend nous utilisons Vite.
 
@@ -42,7 +41,7 @@ Pour lancer le serveur, il faudra run la commande dans le dossier 'client' : `pn
 
 ## 3 - Docker
 
----
+
 
 Docker est devenu un outil **incontournable** pour le développement web en 2024. 
 
@@ -57,7 +56,7 @@ Le port de la base de données est le : **27O17**
 
 ## 4 - API Documentation
 
----
+
 
 Cette API permet aux utilisateurs de s'inscrire, se connecter, se déconnecter et gérer ses réservations. Par ailleurs, l'administrateur peut voir les réservations ainsi que les gérer.
 
@@ -151,7 +150,7 @@ POST /logout
 
 ## 5 - Dépendances
 
----
+
 ### Backend
 *express* : Framework web 🤮 pour Node.js
 
@@ -180,7 +179,6 @@ _vite_ : Outil de construction rapide pour les applications web.
 
 ## Installation
 
----
 
 1. Clonez le dépôt
 2. Allez dans le dossier 'server' : `cd server`.
