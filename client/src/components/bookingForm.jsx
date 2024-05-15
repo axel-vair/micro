@@ -12,6 +12,7 @@ const BookingForm = () => {
     const [numberOfPeople, setNumberOfPeople] = useState(1);
     const now = new Date();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [status, setStatus] = useState(true);
 
     const handleDateTimeChange = (newDateTime) => {
         if (isBefore(newDateTime, now)) {
@@ -48,7 +49,9 @@ const BookingForm = () => {
             date: date.toISOString(), // Convertir en format ISO (YYYY-MM-DDTHH:MM:SSZ)
             startTime: date.toISOString(),
             endTime: endTime.toISOString(),
-            people: numberOfPeople
+            people: numberOfPeople,
+            status: status
+
         };
 
         try {
