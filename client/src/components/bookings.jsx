@@ -6,6 +6,7 @@ const BookingList = () => {
     const [bookings, setBookings] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const []
 
     const handleRowClick = ($id) =>{
         console.log(`chaque id est : ${$id}`);
@@ -53,12 +54,15 @@ const BookingList = () => {
                     <table className="w-full bg-gray-800 rounded-lg overflow-hidden">
                         <thead>
                         <tr className="bg-gray-700 text-left">
-                            <th className="px-4 py-2">Utilisateur</th>
+                            <th className="px-4 py-2">Client</th>
                             <th className="px-4 py-2">Date</th>
                             <th className="px-4 py-2">Heure de début</th>
                             <th className="px-4 py-2">Heure de fin</th>
                             <th className="px-4 py-2">Statut</th>
+                            <th className='px-4 py-2'>Personnes</th>
                             <th className="px-4 py-2">Annulation</th>
+
+                            <th className='px-4 py-2'>Modification</th>
 
                         </tr>
                         </thead>
@@ -72,16 +76,28 @@ const BookingList = () => {
                                     {booking.user?.email || 'Utilisateur inconnu'}
                                 </td>
                                 <td className="px-4 py-2">
-                                    {new Date(booking.date).toLocaleDateString()}
+                                {new Date(booking.date).toLocaleDateString('fr-FR', {
+                                                                        year: 'numeric',
+                                                                        month: 'long',
+                                                                        day: 'numeric'
+                                                                        })} 
                                 </td>
                                 <td className="px-4 py-2">
-                                    {new Date(booking.startTime).toLocaleTimeString()}
+                                {new Date(booking.startTime).toLocaleTimeString('fr-FR', {
+                                                                        hour: 'numeric',
+                                                                        minute: 'numeric',
+                                                                        hour12: false
+                                       
+                                                                                        })}
                                 </td>
                                 <td className="px-4 py-2">
                                     {new Date(booking.endTime).toLocaleTimeString()}
                                 </td>
                                 <td className="px-4 py-2">
                                     {booking.status === true ? 'Confirmé' : 'Annuler'}
+                                </td>
+                                <td className='px-4 py-2'>
+                                    {booking.people} 
                                 </td>
                                 <td className="px-4 py-2">
                                     <button
@@ -91,6 +107,15 @@ const BookingList = () => {
                                     Annuler
                                     </button>
                                 </td>
+                                <td className='px-4 py-2'>
+                                <button
+                                    type="button"
+                                    className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
+                                    onClick={()=>handleRowClick(booking._id)}>
+                                        Modifier la réservation
+                                    </button>
+                                </td>
+
                                 </tr>
                             ))}
                             </tbody>
