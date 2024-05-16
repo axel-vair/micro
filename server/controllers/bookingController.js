@@ -71,3 +71,24 @@ exports.updateBookingStatus = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+
+exports.updateBookingPeople = async (req, res) => {
+     try {
+        const bookingId = req.params.id;
+        const newPeople = req.body.people;
+        
+        const booking = await Booking.findById(bookingId);
+
+        if(!booking){
+            return res.status(404).json({ error : 'Réservation non trouvé'});
+        }
+
+        booking.people = newPeople;
+        const updatedBooking = await booking.save();
+        res.status(200).json(updatedBooking);
+        
+     } catch (error) {
+        res.status(500).json({ error: error.message });
+     }
+}
