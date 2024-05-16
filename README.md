@@ -264,6 +264,7 @@ Content-Type: application/json
 
 #### updateBookingStatus réussi - Code 200
 ```http
+/PATCH /:id/status
 {
     "_id": "664489ef4aacceb7e302338c",
     "user": "6634fbf89fcea6a77c1faa03",
@@ -289,6 +290,72 @@ Content-Type: application/json
     "__v": 0
 }
 ```
+
+#### Paramètre de la requête /:id/people
+| Nom       | Type   | Description               |
+|-----------|--------|---------------------------|
+| date      | Date   | Date du booking           |
+| startTime | Date   | Heure de début du booking |
+| endTime   | Date   | Heure de fin du booking   |
+| people    | Number | Nombre de personnes       |
+| status    | Boolean | Status de la réservation  |
+
+
+#### updateBookingStatus réussi - Code 200
+```http
+/PATCH /:id/people
+{
+    "_id": "664489ef4aacceb7e302338c",
+    "date": "2024-05-15T10:15:00.000Z",
+    "startTime": "2024-05-15T10:15:00.000Z",
+    "endTime": "2024-05-15T11:15:00.000Z",
+    "people": 1,
+    "status": false,
+    "__v": 0
+}
+```
+#### Echec updateBookingStatus - Code 500
+
+```http
+/GET 
+{
+    error: error.message 
+}
+```
+
+
+#### Paramètre de la requête /:id/myBookings
+| Nom       | Type   | Description               |
+|-----------|--------|---------------------------|
+| date      | Date   | Date du booking           |
+| startTime | Date   | Heure de début du booking |
+| endTime   | Date   | Heure de fin du booking   |
+| people    | Number | Nombre de personnes       |
+| status    | Boolean | Status de la réservation  |
+
+
+#### myBookings réussi - Code 200
+```http
+/GET /:id/myBookings
+{
+    "_id": "664489ef4aacceb7e302338c",
+    "date": "2024-05-15T10:15:00.000Z",
+    "startTime": "2024-05-15T10:15:00.000Z",
+    "endTime": "2024-05-15T11:15:00.000Z",
+    "people": 1,
+    "status": true,
+    "__v": 0
+}
+```
+#### Echec myBookings - Code 500
+
+```http
+ 
+{
+    error: error.message 
+}
+```
+
 ## 5 - Dépendances
 
 ### Backend
