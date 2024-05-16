@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import Navigation from "./_navbar.jsx";
+import cuisinierImage from '/src/images/cuisinier.jpg';
+import tasseImage from '/src/images/tasse.jpg';
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -39,8 +41,8 @@ export default function Login() {
         <>
             <Navigation />
 
-            <div className="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center">
-                <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
+            <div className="bg-gray-800 text-white min-h-screen flex flex-col items-center justify-center" style={{backgroundImage: `url(${cuisinierImage})`, backgroundSize: 'cover', backgroundPosition: 'center bottom'}}>
+                <div className="bg-gray-800 bg-opacity-80 p-8 rounded-lg shadow-lg w-full max-w-md">
                     <h1 className="text-2xl font-bold mb-4">Formulaire de connexion</h1>
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div>
@@ -50,7 +52,7 @@ export default function Login() {
                             <input
                                 type="email"
                                 id="email"
-                                className="bg-gray-700 border-gray-600 text-white rounded-md px-4 py-2 w-full"
+                                className="bg-gray-500 border-gray-600 text-white rounded-md px-4 py-2 w-full"
                                 onChange={(e) => setEmail(e.target.value)}
                             />
                         </div>
@@ -61,13 +63,13 @@ export default function Login() {
                             <input
                                 type="password"
                                 id="password"
-                                className="bg-gray-700 border-gray-600 text-white rounded-md px-4 py-2 w-full"
+                                className="bg-gray-500 border-gray-600 text-white rounded-md px-4 py-2 w-full"
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
                         <button
                             type="submit"
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition-colors duration-300"
+                            className="bg-orange-800 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-md transition-colors duration-300"
                         >
                             Se connecter
                         </button>

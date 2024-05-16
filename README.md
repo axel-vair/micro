@@ -63,3 +63,129 @@ Nous avions fait le choix d'une base de données Postgresql. Cependant, pour se 
 Le port de la base de données est le : ~~**5432**~~ **27O17**
 
 ~~Le port d'adminer est le : **9080**~~
+
+--
+## 4 - API Documentation
+
+Cette API permet aux utilisateurs de s'inscrire, de se connecter et de se déconnecter. Elle est construite avec Express.js et utilise MongoDB comme base de données.
+
+### Routes
+
+#### Paramètres de la requête /register
+
+| Nom         | Type   | Description         |
+|-------------|--------|---------------------|
+| email       | String | Email de l'utilisateur|
+| lastname    | String | Nom de l'utilisateur|
+| firstname   | String | Prénom de l'utilisateur|
+| password    | String | Mot de passe de l'utilisateur |
+
+```http
+POST /register
+Content-Type: application/json
+
+{
+    "email": "john@example.com",
+    "nom": "Doe",
+    "prénom": "John",
+    "password": "password123"
+}
+```
+
+#### Inscription réussie - Code 200
+```http
+{
+    "message": "User registered successfully."
+}
+```
+
+#### Echec de l'inscription - Code 400
+```http
+{
+    "message": "Cette adresse email est déjà utilisée."
+}
+```
+
+#### Paramètres de la requête /login
+
+
+| Nom         | Type   | Description         |
+|-------------|--------|---------------------|
+| email       | String | Email de l'utilisateur|
+| password    | String | Mot de passe de l'utilisateur |
+
+#### Login
+```http
+POST /login
+Content-Type: application/json
+
+{
+    "email": "john@example.com",
+    "password": "password123"
+}
+```
+
+#### Connexion réussie - Code 200
+```http
+{
+    "message": "Connexion réussie",
+    "user": {
+        "_id": "6087b9c3f98e7a0015b9d9e3",
+        "email": "john@example.com",
+        "password": "$2b$10$..."
+    }
+```
+
+#### Echec de la connexion - Code 400
+```http
+{
+    "message": "Email ou mot de passe incorrect"
+}
+```
+
+### Logout
+```http
+POST /logout
+```
+
+#### Déconnexion réussie - Code 200
+```http
+{
+    "message": "Déconnexion réussie"
+}
+```
+
+## 5 - Dépendances backend
+*express* : Framework web 🤮 pour Node.js
+
+
+*bcrypt* : Bibliothèque pour hasher les mots de passe
+
+
+*mongoose* : Bibliothèque pour interagir avec MongoDB
+
+
+
+## Installation
+Clonez le dépôt
+
+Allez dans le dossier 'server' : `cd server`.
+
+
+Installez les dépendances du backend avec `pnpm install`.
+
+
+Initialisez le container docker : `docker compose up -d`.
+
+
+Démarrez le serveur backend avec `node app.js`.
+
+Allez dans le dossier client : `cd client`.
+
+
+Installez les dépendances du frontend avec `pnpm install`.
+
+
+Démarrez le serveur frontend avec `pnpm run dev`.
+
+
