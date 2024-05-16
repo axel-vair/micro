@@ -40,14 +40,22 @@ const Navigation = () => {
                     )}
                     {isLoggedIn && (
                         <>
+                            {user.role === "admin" && (
+                                <li>
+                                    <Link to="/bookings" className="hover:text-white">
+                                        Toutes les réservations
+                                    </Link>
+                                </li>
+                            )}
+
                             <li>
-                                <Link to="/bookings" className="hover:text-white">
-                                    Réservations
+                                <Link to="/book" className="hover:text-white">
+                                    Réserver
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/book" className="hover:text-white">
-                                    Formulaire de réservation
+                                <Link to="/reservations" className="hover:text-white">
+                                    Mes réservations
                                 </Link>
                             </li>
                             <li>
