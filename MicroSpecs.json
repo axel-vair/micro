@@ -151,6 +151,33 @@
         }
       }
     },
+    "/api/bookings/{id}/myBookings": {
+      "get": {
+        "summary": "Récupérer les réservations d'un utilisateur",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID de l'utilisateur",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Réservations récupérées avec succès"
+          },
+          "400": {
+            "description": "Aucun ID d'utilisateur fourni"
+          },
+          "500": {
+            "description": "Erreur interne du serveur"
+          }
+        }
+      }
+    },
     "/api/bookings/{id}/status": {
       "patch": {
         "summary": "Mettre à jour le statut d'une réservation",
@@ -183,6 +210,48 @@
         "responses": {
           "200": {
             "description": "Statut de la réservation mis à jour avec succès"
+          },
+          "404": {
+            "description": "Réservation non trouvée"
+          },
+          "500": {
+            "description": "Erreur interne du serveur"
+          }
+        }
+      }
+    },
+    "/api/bookings/{id}/people": {
+      "patch": {
+        "summary": "Mettre à jour le nombre de personnes d'une réservation",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID de la réservation",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "people": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Nombre de personnes mis à jour avec succès"
           },
           "404": {
             "description": "Réservation non trouvée"

@@ -34,7 +34,6 @@ exports.getAllBookings = async (req, res) => {
 exports.getBookingByUserId = async (req, res) => {
     try {
         const userId = req.params.id;
-        console.log(userId)
 
         if (!userId) {
             return res.status(400).json({ error: 'Aucun ID d\'utilisateur fourni' });
