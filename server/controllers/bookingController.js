@@ -3,7 +3,7 @@ const User = require('../models/User');
 
 exports.createBooking = async (req, res) => {
     try {
-        const {userId, date, startTime, endTime, people, status} = req.body;
+        const {userId, date, startTime, endTime, people, status, table} = req.body;
 
         const booking = new Booking({
             user: userId,
@@ -11,7 +11,9 @@ exports.createBooking = async (req, res) => {
             startTime: new Date(startTime),
             endTime: new Date(endTime),
             people: people,
-            status: status
+            status: status, 
+            table: table
+            
 
         });
 

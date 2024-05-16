@@ -13,6 +13,7 @@ const BookingForm = () => {
     const now = new Date();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [status, setStatus] = useState(true);
+    const [table, setTable] = useState(1);
 
     const handleDateTimeChange = (newDateTime) => {
         if (isBefore(newDateTime, now)) {
@@ -50,7 +51,9 @@ const BookingForm = () => {
             startTime: date.toISOString(),
             endTime: endTime.toISOString(),
             people: numberOfPeople,
-            status: status
+            status: status,
+            table: table
+            
 
         };
 
@@ -86,6 +89,18 @@ const BookingForm = () => {
                                             min="1"
                                             max="10"
                                             className="ml-2 border border-gray-300 rounded-md py-1 px-2"
+                                        />  
+                                    </label>
+
+                                    <label className="block text-gray-800 mt-4">
+                                        N° de table
+                                        <input type="number"
+                                         value={table}
+                                         onChange={(e)=>setTable(e.target.value)}
+                                         min="1"
+                                         max="10"
+                                         className="ml-2 border border-gray-300 rounded-md py-1 px-2"
+
                                         />
                                     </label>
                                 </div>

@@ -36,6 +36,11 @@ const Navigation = () => {
                                     Inscription
                                 </Link>
                             </li>
+                            <li>
+                                <Link to="/plan" className='hover:text-white'>
+                                    Nos Tables 
+                                </Link>
+                            </li>
                         </>
                     )}
                     {isLoggedIn && (
@@ -49,6 +54,12 @@ const Navigation = () => {
                             )}
 
                             <li>
+                                <Link to="/tables" className='hover:text-white'>
+                                    Nos Tables 
+                                </Link>
+                            </li>
+
+                            <li>
                                 <Link to="/book" className="hover:text-white">
                                     Réserver
                                 </Link>
@@ -58,11 +69,13 @@ const Navigation = () => {
                                     Mes réservations
                                 </Link>
                             </li>
+
                             <li>
                                 <button onClick={handleLogout} className="hover:text-white">
                                     Déconnexion
                                 </button>
                             </li>
+
                         </>
                     )}
                 </ul>
