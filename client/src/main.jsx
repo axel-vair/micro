@@ -10,6 +10,7 @@ import BookingForm from "./components/bookingForm.jsx";
 import AdminGuard from "./guards/admin-guard.jsx";
 import './assets/calendar.css';
 import './assets/modale.css';
+import BookingsUser from "./components/bookingsUser.jsx";
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -21,6 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/book" element={<BookingForm/>}/>
+                <Route path="/reservations" element={<BookingsUser/>} />
                 <Route path="/bookings" element={<AdminGuard><Bookings/></AdminGuard>}/>
             </Routes>
         </Router>
