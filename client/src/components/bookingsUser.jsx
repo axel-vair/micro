@@ -9,6 +9,14 @@ const BookingUserList = () => {
   const userData = JSON.parse(localStorage.getItem('user'));
   const userId = userData.id;
 
+  const handleCancelBooking = async (bookingId) => {
+    try {
+      await axios.patch(`http://localhost:3001/api/bookings/${bookingId}/status`, { status: false });
+      setBookings(bookings.map(booking => booking._id === bookingId ? { ...booking, status: false } : booking));
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   useEffect(() => {
     const fetchBookingsUser = async () => {
