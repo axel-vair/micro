@@ -264,7 +264,7 @@ Content-Type: application/json
 
 #### updateBookingStatus réussi - Code 200
 ```http
-/PATCH /:id/status
+PATCH /:id/status
 {
     "_id": "664489ef4aacceb7e302338c",
     "user": "6634fbf89fcea6a77c1faa03",
@@ -303,7 +303,7 @@ Content-Type: application/json
 
 #### updateBookingStatus réussi - Code 200
 ```http
-/PATCH /:id/people
+PATCH /:id/people
 {
     "_id": "664489ef4aacceb7e302338c",
     "date": "2024-05-15T10:15:00.000Z",
@@ -336,7 +336,7 @@ Content-Type: application/json
 
 #### myBookings réussi - Code 200
 ```http
-/GET /:id/myBookings
+GET /:id/myBookings
 {
     "_id": "664489ef4aacceb7e302338c",
     "date": "2024-05-15T10:15:00.000Z",
