@@ -45,6 +45,7 @@ const BookingList = () => {
                 const response = await axios.get('http://localhost:3001/api/bookings/allBookings');
                 setBookings(response.data);
                 setLoading(false);
+                
             } catch (err) {
                 setError(err.message);
                 setLoading(false);

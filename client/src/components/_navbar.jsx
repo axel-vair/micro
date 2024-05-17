@@ -31,17 +31,17 @@ const Navigation = () => {
                     {!isLoggedIn ? (
                         <>
                             <li>
-                                <Link to="/login" className="hover:text-gray-300 transition duration-300">
+                                <Link to="/login" className=" transition duration-300 hover:bg-customGold">
                                     Connexion
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/register" className="hover:text-gray-300 transition duration-300">
+                                <Link to="/register" className=" transition duration-300">
                                     Inscription
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/plan" className="hover:text-gray-300 transition duration-300">
+                                <Link to="/plan" className=" transition duration-300">
                                     Nos Tables
                                 </Link>
                             </li>
@@ -50,28 +50,28 @@ const Navigation = () => {
                         <>
                             {user.role === "admin" && (
                                 <li>
-                                    <Link to="/bookings" className="hover:text-gray-300 transition duration-300">
+                                    <Link to="/bookings" className=" transition duration-300">
                                         Toutes les réservations
                                     </Link>
                                 </li>
                             )}
                             <li>
-                                <Link to="/tables" className="hover:text-gray-300 transition duration-300">
+                                <Link to="/tables" className=" transition duration-300">
                                     Le Resto'
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/book" className="hover:text-gray-300 transition duration-300">
+                                <Link to="/book" className=" transition duration-300">
                                     Réserver
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/reservations" className="hover:text-gray-300 transition duration-300">
+                                <Link to="/reservations" className=" transition duration-300">
                                     Mes réservations
                                 </Link>
                             </li>
                             <li>
-                                <button onClick={handleLogout} className="hover:text-gray-300 transition duration-300">
+                                <button onClick={handleLogout} className=" transition duration-300">
                                     Déconnexion
                                 </button>
                             </li>

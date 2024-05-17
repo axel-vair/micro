@@ -63,6 +63,7 @@ const BookingForm = () => {
         } catch (error) {
             console.error('Erreur', error);
             setErrorMessage("Erreur lors de la réservation. Veuillez réessayer.");
+            
         }
     };
 
@@ -81,12 +82,12 @@ const BookingForm = () => {
                         )}
                         <form onSubmit={handleSubmit}>
                             <div className="flex justify-center">
-                                <div className="calendar-container p-6 rounded-lg shadow-lg" style={{backgroundColor:''}}>
+                                <div className="calendar-container p-6 rounded-lg shadow-lg" style={{backgroundColor:'white'}}>
                                     <Calendar onDateTimeChange={handleDateTimeChange} />
                                 </div>
                             </div>
                             {dateTime && (
-                                <div className="mt-4 bg-white p-4 rounded-md mx-auto max-w-md">
+                                <div  className="mt-4 bg-white p-4 rounded-md mx-auto max-w-md">
                                     <p className="text-gray-800">Date sélectionnée : {format(dateTime, "dd/MM/yyyy")}</p>
                                     <p className="text-gray-800">Heure sélectionnée : <span className="font-bold">{format(dateTime, "HH:mm")}</span></p>
 
