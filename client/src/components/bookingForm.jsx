@@ -14,6 +14,7 @@ const BookingForm = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [status, setStatus] = useState(true);
     const [table, setTable] = useState(1);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const handleDateTimeChange = (newDateTime) => {
         if (isBefore(newDateTime, now)) {
@@ -34,47 +35,56 @@ const BookingForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         if (!dateTime) {
-            console.error("Veuillez sélectionner une date et une heure.");
+            setErrorMessage("Veuillez sélectionner une date et une heure.");
             return;
         }
-
-        // Convertir la date en objet Date JavaScript au format ISO (YYYY-MM-DD)
+    
         const date = new Date(dateTime);
         const endTime = addHours(date, 1);
-
-        // Création du nouvel objet à envoyer
+    
         const bookingData = {
             userId: userId,
-            date: date.toISOString(), // Convertir en format ISO (YYYY-MM-DDTHH:MM:SSZ)
+            date: date.toISOString(),
             startTime: date.toISOString(),
             endTime: endTime.toISOString(),
             people: numberOfPeople,
             status: status,
             table: table
-            
-
         };
-
+    
+        console.log('Booking Data:', bookingData);
+    
         try {
             const response = await axios.post('http://localhost:3001/api/bookings/newBooking', bookingData);
             console.log(response.data);
-            setIsModalOpen(true); // Ouvrir la modal après une réservation réussie
+            setIsModalOpen(true);
         } catch (error) {
             console.error('Erreur', error);
+            setErrorMessage("Erreur lors de la réservation. Veuillez réessayer.");
         }
     };
 
     return (
-        <div className="bg-gray-900 min-h-screen">
+        <div className="min-h-screen" style={{ backgroundColor: '#292524' }}>
+
             <Navigation />
             <div className="container mx-auto px-4 py-8">
                 {userId ? (
                     <>
                         <h2 className="text-2xl text-white font-bold mb-4">Réserver une table</h2>
+                        {errorMessage && (
+                            <div className="bg-red-500 text-white p-2 rounded mb-4">
+                                {errorMessage}
+                            </div>
+                        )}
                         <form onSubmit={handleSubmit}>
-                            <Calendar onDateTimeChange={handleDateTimeChange} />
+                            <div className="flex justify-center">
+                                <div className="calendar-container p-6 rounded-lg shadow-lg" style={{backgroundColor:''}}>
+                                    <Calendar onDateTimeChange={handleDateTimeChange} />
+                                </div>
+                            </div>
                             {dateTime && (
                                 <div className="mt-4 bg-white p-4 rounded-md mx-auto max-w-md">
                                     <p className="text-gray-800">Date sélectionnée : {format(dateTime, "dd/MM/yyyy")}</p>
@@ -89,18 +99,18 @@ const BookingForm = () => {
                                             min="1"
                                             max="10"
                                             className="ml-2 border border-gray-300 rounded-md py-1 px-2"
-                                        />  
+                                        />
                                     </label>
 
                                     <label className="block text-gray-800 mt-4">
                                         N° de table
-                                        <input type="number"
-                                         value={table}
-                                         onChange={(e)=>setTable(e.target.value)}
-                                         min="1"
-                                         max="10"
-                                         className="ml-2 border border-gray-300 rounded-md py-1 px-2"
-
+                                        <input
+                                            type="number"
+                                            value={table}
+                                            onChange={(e) => setTable(e.target.value)}
+                                            min="1"
+                                            max="10"
+                                            className="ml-2 border border-gray-300 rounded-md py-1 px-2"
                                         />
                                     </label>
                                 </div>
@@ -110,7 +120,7 @@ const BookingForm = () => {
                                 {dateTime && (
                                     <button
                                         type="submit"
-                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition-colors duration-300"
+                                        className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition-colors duration-300"
                                     >
                                         Réserver
                                     </button>

@@ -7,7 +7,7 @@ const bookingSchema = new mongoose.Schema({
     endTime: { type: Date, required: true },
     people: { type: Number, required: true },
     status: { type: Boolean, required: true },
-    table: { type: Number, required: true },
+    table: { type: Number, required: true }
 });
 
 module.exports = mongoose.model('Booking', bookingSchema);

@@ -3,25 +3,52 @@ const User = require('../models/User');
 
 exports.createBooking = async (req, res) => {
     try {
-        const {userId, date, startTime, endTime, people, status, table} = req.body;
+        const { userId, date, startTime, endTime, people, status, table } = req.body;
 
+        // Vérifiez les données reçues
+        console.log('Request Body:', req.body);
+
+        // Convertir les dates en objets Date JavaScript
+        const start = new Date(startTime);
+        const end = new Date(endTime);
+
+        // Vérifier les conflits de réservation
+        const conflictingBooking = await Booking.findOne({
+            table: table,
+            date: new Date(date),
+            $or: [
+                { startTime: { $lt: end, $gte: start } },
+                { endTime: { $gt: start, $lte: end } },
+                { startTime: { $lte: start }, endTime: { $gte: end } }
+            ]
+        });
+
+        if (conflictingBooking) {
+            console.log('Conflit de réservation trouvé:', conflictingBooking);
+            return res.status(400).json({ message: "La date et l'heure sont déjà réservées par une autre personne." });
+        }
+
+        // Créer la nouvelle réservation
         const booking = new Booking({
             user: userId,
             date: new Date(date),
-            startTime: new Date(startTime),
-            endTime: new Date(endTime),
+            startTime: start,
+            endTime: end,
             people: people,
-            status: status, 
+            status: status,
             table: table
-            
-
         });
 
         await booking.save();
-        res.status(201).json({ message: 'Réservation créée avec succès', booking });    } catch (error) {
+        res.status(201).json({ message: 'Réservation créée avec succès', booking });
+    } catch (error) {
+        console.error('Server Error:', error);
         res.status(500).json({ error: 'Une erreur est survenue lors de la création de la réservation' });
     }
 };
+
+
+
 
 exports.getAllBookings = async (req, res) => {
     try {
