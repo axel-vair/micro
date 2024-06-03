@@ -56,6 +56,7 @@ const BookingUserList = () => {
                   <th className="px-4 py-2">Date</th>
                   <th className="px-4 py-2">Heure de début</th>
                   <th className="px-4 py-2">Heure de fin</th>
+                  
                   <th className="px-4 py-2">Statut</th>
                   <th className="px-4 py-2">Annulation</th>
 
