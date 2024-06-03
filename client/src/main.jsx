@@ -1,3 +1,4 @@
+
 import React from 'react'
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import ReactDOM from 'react-dom/client'
@@ -7,6 +8,7 @@ import Login from "./components/login.jsx";
 import Register from "./components/register.jsx";
 import Bookings from "./components/bookings.jsx";
 import BookingForm from "./components/bookingForm.jsx";
+import Tables from "./components/planRestaurant.jsx"
 import AdminGuard from "./guards/admin-guard.jsx";
 import './assets/calendar.css';
 import './assets/modale.css';
@@ -24,6 +26,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 <Route path="/book" element={<BookingForm/>}/>
                 <Route path="/reservations" element={<BookingsUser/>} />
                 <Route path="/bookings" element={<AdminGuard><Bookings/></AdminGuard>}/>
+                <Route path='/tables' element={<Tables/>} />
             </Routes>
         </Router>
     </React.StrictMode>,

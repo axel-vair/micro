@@ -1,8 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHome} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
 
 const Navigation = () => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -20,54 +19,59 @@ const Navigation = () => {
     };
 
     return (
-        <nav className="bg-gray-800 py-7 fixed top-0 left-0 w-full z-10">
-            <div className="container mx-auto flex justify-between items-center">
+        <nav className="bg-gray-900 py-4 fixed top-0 left-0 w-full z-10 shadow-md">
+            <div className="container mx-auto flex justify-center items-center">
                 <div className="flex items-center">
                     <Link to="/">
-                    <FontAwesomeIcon icon={faHome} className="text-white h-6 w-6 mr-2" size="10x" />
+                        <FontAwesomeIcon icon={faHome} className="text-white h-8 w-8 mr-4" />
                     </Link>
+                    {/* <span className="text-white text-lg font-semibold">Restaurant</span> */}
                 </div>
-                <ul className="flex space-x-6 text-gray-400 transition-colors duration-300">
-                    {!isLoggedIn && (
+                <ul className="flex space-x-6 text-white">
+                    {!isLoggedIn ? (
                         <>
                             <li>
-                            <Link to="/login" className="hover:text-white">
-                            <button onClick={() => history.push("/login")} className="text-white font-inika bg-gray-800 border rounded border-white border-2 py-2 px-4 hover:text-amber-600 hover:border-amber-600">
-                                Connexion
-                            </button>
-                            </Link>
+                                <Link to="/login" className=" transition duration-300 hover:bg-customGold">
+                                    Connexion
+                                </Link>
                             </li>
                             <li>
-                            <Link to="/register" className="hover:text-white">
-                            <button onClick={() => history.push("/register")} className="text-white bg-gray-800 border rounded border-white border-2 py-2 px-4 hover:text-amber-600 hover:border-amber-600">
-                                Inscription
-                            </button>
-                            </Link>
+                                <Link to="/register" className=" transition duration-300">
+                                    Inscription
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/plan" className=" transition duration-300">
+                                    Nos Tables
+                                </Link>
                             </li>
                         </>
-                    )}
-                    {isLoggedIn && (
+                    ) : (
                         <>
                             {user.role === "admin" && (
                                 <li>
-                                    <Link to="/bookings" className="hover:text-white">
+                                    <Link to="/bookings" className=" transition duration-300">
                                         Toutes les réservations
                                     </Link>
                                 </li>
                             )}
-
                             <li>
-                                <Link to="/book" className="hover:text-white">
+                                <Link to="/tables" className=" transition duration-300">
+                                    Le Resto'
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/book" className=" transition duration-300">
                                     Réserver
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/reservations" className="hover:text-white">
+                                <Link to="/reservations" className=" transition duration-300">
                                     Mes réservations
                                 </Link>
                             </li>
                             <li>
-                                <button onClick={handleLogout} className="hover:text-white">
+                                <button onClick={handleLogout} className=" transition duration-300">
                                     Déconnexion
                                 </button>
                             </li>
